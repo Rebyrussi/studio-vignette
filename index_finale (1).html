@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Studio XAI – Vignette Cliniche</title>
+<title>Intelligenza Artificiale e Diagnosi Clinica</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -14,12 +14,10 @@
     --muted: #7a7168;
     --accent: #2d5a8e;
     --accent-light: #e8f0f9;
-    --correct: #2a6049;
-    --correct-light: #e8f5ef;
-    --wrong: #8e2d2d;
-    --wrong-light: #f9e8e8;
     --warn: #7a5a1a;
     --warn-light: #f9f3e0;
+    --success: #2a6049;
+    --success-light: #e8f5ef;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,28 +32,29 @@
 
   .container { max-width: 760px; margin: 0 auto; }
 
+  /* HEADER */
   .study-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
   }
   .study-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
-  .study-header p { color: var(--muted); font-size: 0.95rem; font-weight: 300; }
+  .study-header p { color: var(--muted); font-size: 0.9rem; }
 
-  .progress-bar-wrap { margin-bottom: 1.5rem; }
+  /* PROGRESS */
+  .progress-wrap { margin-bottom: 1.5rem; }
   .progress-label {
     display: flex;
     justify-content: space-between;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--muted);
     margin-bottom: 0.4rem;
     font-weight: 500;
@@ -63,8 +62,9 @@
     text-transform: uppercase;
   }
   .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.5s ease; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
 
+  /* CARDS */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -73,122 +73,130 @@
     margin-bottom: 1.2rem;
   }
 
-  .condition-badge {
-    display: inline-block;
-    font-size: 0.75rem;
+  .section-header {
+    background: var(--accent);
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-light);
-    border-radius: 2px;
-    padding: 0.3rem 0.7rem;
     margin-bottom: 1.2rem;
   }
 
-  .vignette-text {
-    font-size: 0.97rem;
-    line-height: 1.75;
-    color: var(--text);
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-  }
-
-  .ai-box {
-    border-radius: 3px;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1.5rem;
-    border-left: 3px solid;
+  .section-intro {
     font-size: 0.9rem;
+    color: var(--muted);
     line-height: 1.6;
+    margin-bottom: 1.2rem;
+    padding: 0.8rem 1rem;
+    background: var(--bg);
+    border-radius: 3px;
+    border-left: 3px solid var(--accent);
   }
-  .ai-box.correct { background: var(--accent-light); border-color: var(--accent); color: var(--text); }
-  .ai-box.wrong   { background: var(--accent-light); border-color: var(--accent); color: var(--text); }
-  .ai-box-label {
-    font-weight: 500;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    opacity: 0.75;
-  }
-  .ai-box-diagnosis { font-weight: 500; font-size: 1rem; margin-bottom: 0.4rem; }
-  .ai-box-justification { font-size: 0.88rem; opacity: 0.9; margin-top: 0.6rem; font-style: italic; }
 
-  .options-label {
-    font-size: 0.82rem;
+  /* QUESTIONS */
+  .question-block { margin-bottom: 1.8rem; }
+  .question-block:last-child { margin-bottom: 0; }
+
+  .question-label {
+    font-size: 0.92rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+  .question-sublabel {
+    font-size: 0.84rem;
     color: var(--muted);
     margin-bottom: 0.8rem;
+    line-height: 1.5;
   }
-  .options-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-  .option-btn {
+
+  /* RADIO / CHECKBOX */
+  .options-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .option-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.8rem;
-    padding: 0.9rem 1rem;
+    gap: 0.7rem;
+    padding: 0.7rem 0.9rem;
     border: 1px solid var(--border);
     border-radius: 3px;
     background: var(--bg);
     cursor: pointer;
-    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+  .option-item:hover { border-color: var(--accent); background: var(--accent-light); }
+  .option-item input { margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+  .option-item.selected { border-color: var(--accent); background: var(--accent-light); }
+
+  /* LIKERT */
+  .likert-wrap { overflow-x: auto; }
+  .likert-scale {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    min-width: 320px;
+  }
+  .likert-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.3rem;
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+    transition: background 0.15s;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-align: center;
+    min-width: 40px;
+  }
+  .likert-option:last-child { border-right: none; }
+  .likert-option input { accent-color: var(--accent); margin-bottom: 4px; }
+  .likert-option:hover { background: var(--accent-light); }
+  .likert-option.selected { background: var(--accent-light); color: var(--accent); font-weight: 500; }
+  .likert-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    padding: 0 2px;
+  }
+
+  /* TEXT INPUT */
+  .text-input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;
-    line-height: 1.5;
+    background: var(--bg);
     color: var(--text);
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color 0.15s;
   }
-  .option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-light); }
-  .option-btn.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 500; }
-  .option-btn:disabled { cursor: default; }
-  .option-letter { font-weight: 600; min-width: 1.2rem; color: var(--muted); font-size: 0.85rem; padding-top: 0.05rem; }
-  .option-btn.selected .option-letter { color: var(--accent); }
+  .text-input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
 
-  .confidence-section { margin-bottom: 1.5rem; }
-  .confidence-label {
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-  }
-  .confidence-row { display: flex; align-items: center; gap: 1rem; }
-  input[type="range"] { flex: 1; accent-color: var(--accent); height: 4px; cursor: pointer; }
-  .confidence-value { font-size: 1.1rem; font-weight: 600; color: var(--accent); min-width: 3.5rem; text-align: right; }
-  .confidence-ends { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; }
-
-  .modify-section {
-    background: var(--warn-light);
-    border: 1px solid #e6c84a;
-    border-radius: 3px;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1.5rem;
-  }
-  .modify-section h4 {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--warn);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-  }
-  .modify-toggle { display: flex; gap: 0.6rem; margin-bottom: 0.8rem; }
-  .toggle-btn {
-    padding: 0.5rem 1rem;
-    border-radius: 2px;
+  /* SELECT */
+  .select-input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
     border: 1px solid var(--border);
-    background: white;
-    cursor: pointer;
+    border-radius: 3px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 500;
-    transition: all 0.15s;
+    font-size: 0.9rem;
+    background: var(--bg);
+    color: var(--text);
   }
-  .toggle-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
 
+  /* BUTTONS */
   .btn-primary {
     background: var(--accent);
     color: white;
@@ -200,33 +208,182 @@
     font-weight: 500;
     cursor: pointer;
     width: 100%;
-    letter-spacing: 0.02em;
     transition: opacity 0.15s;
   }
   .btn-primary:hover:not(:disabled) { opacity: 0.88; }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 0.7rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { background: var(--accent-light); }
 
+  .btn-row { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+  .btn-row .btn-primary { flex: 1; }
+
+  /* CONSENT */
+  .consent-text {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .consent-text h3 {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 1.2rem 0 0.4rem;
+  }
+  .consent-text h3:first-child { margin-top: 0; }
+  .consent-text p { margin-bottom: 0.5rem; }
+  .consent-text ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }
+  .consent-text li { margin-bottom: 0.2rem; }
+  .consent-text em { font-style: italic; color: var(--muted); }
+
+  /* VIGNETTE */
+  .condition-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border-radius: 2px;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 1.2rem;
+  }
+  .vignette-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg);
+    border-radius: 3px;
+    border-left: 3px solid var(--border);
+  }
+  .ai-box {
+    border-radius: 3px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .ai-box-label {
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+  }
+  .ai-box-diagnosis { font-weight: 500; font-size: 1rem; margin-bottom: 0.4rem; color: var(--text); }
+  .ai-box-justification { font-size: 0.88rem; color: var(--muted); margin-top: 0.6rem; font-style: italic; line-height: 1.6; }
+
+  .vignette-options-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+  .vignette-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .vignette-option:hover { border-color: var(--accent); background: var(--accent-light); }
+  .vignette-option.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 500; }
+  .option-letter { font-weight: 600; min-width: 1.2rem; color: var(--muted); font-size: 0.85rem; }
+  .vignette-option.selected .option-letter { color: var(--accent); }
+
+  .confidence-section { margin: 1.2rem 0; }
+  .confidence-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+  }
+  .confidence-row { display: flex; align-items: center; gap: 1rem; }
+  input[type="range"] { flex: 1; accent-color: var(--accent); height: 4px; cursor: pointer; }
+  .confidence-value { font-size: 1.1rem; font-weight: 600; color: var(--accent); min-width: 3.5rem; text-align: right; }
+  .confidence-ends { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; }
+
+  .modify-section {
+    background: var(--warn-light);
+    border: 1px solid #e6c84a;
+    border-radius: 3px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.2rem 0;
+  }
+  .modify-section h4 {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--warn);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .modify-toggle { display: flex; gap: 0.6rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .toggle-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .toggle-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  /* END */
   .end-screen { text-align: center; padding: 3rem 2rem; }
   .end-screen h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem; }
-  .end-screen p { color: var(--muted); font-size: 1rem; font-weight: 300; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+  .end-screen p { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 500px; margin: 0 auto 0.5rem; }
   .checkmark { font-size: 3rem; margin-bottom: 1rem; }
+  .saving-msg { text-align: center; color: var(--muted); font-size: 0.88rem; margin-top: 1rem; min-height: 1.4rem; }
+  .saving-msg.success { color: var(--success); }
+  .saving-msg.error { color: #8e2d2d; }
 
-  /* Saving indicator */
-  .saving-msg {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.88rem;
-    margin-top: 1rem;
-    min-height: 1.4rem;
-  }
-  .saving-msg.error { color: var(--wrong); }
-  .saving-msg.success { color: var(--correct); }
+  .error-msg { color: #8e2d2d; font-size: 0.82rem; margin-top: 0.4rem; display: none; }
+  .error-msg.show { display: block; }
 
   .hidden { display: none !important; }
 
   @media (max-width: 500px) {
-    .card { padding: 1.4rem 1.2rem; }
-    .study-header h1 { font-size: 1.5rem; }
+    .card { padding: 1.2rem 1rem; }
+    .study-header h1 { font-size: 1.4rem; }
+    .likert-option { min-width: 32px; font-size: 0.75rem; }
   }
 </style>
 </head>
@@ -234,62 +391,592 @@
 <div class="container">
 
   <div class="study-header">
-    <h1>Vignette Cliniche</h1>
-    <p>Studio sulla valutazione diagnostica assistita da intelligenza artificiale</p>
+    <h1>Intelligenza Artificiale e Diagnosi Clinica</h1>
+    <p>Studio sperimentale sull'uso dell'AI in ambito clinico</p>
   </div>
 
-  <div id="progress-wrap" class="progress-bar-wrap hidden">
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrap" id="progress-wrap">
     <div class="progress-label">
-      <span>Vignetta <span id="prog-current">1</span> di 9</span>
-      <span id="prog-pct">0%</span>
+      <span id="progress-label-text">Informazioni e Consenso</span>
+      <span id="progress-pct">0%</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FASE 1 - QUESTIONARIO                       -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <!-- PAGINA 1: Consenso -->
+  <div id="page-1" class="card">
+    <div class="consent-text">
+      <h3>Titolo dello studio</h3>
+      <p>Il Ruolo della Spiegabilità dell'AI e del Timing nella Diagnosi Clinica: Uno Studio Sperimentale</p>
+      <h3>Ricercatrice principale</h3>
+      <p>Russi Rebecca Amelia, Studentessa Magistrale in Psicologia Clinica e di Comunità (IUSTO)</p>
+      <h3>Supervisore</h3>
+      <p>Chiavarino Claudia (IUSTO)</p>
+      <h3>Scopo dello studio</h3>
+      <p>Questa ricerca indaga come le caratteristiche dei sistemi di Intelligenza Artificiale, in particolare la spiegabilità e il timing del supporto decisionale, influenzano il processo di diagnosi clinica.</p>
+      <h3>Procedura</h3>
+      <p>La partecipazione prevede due fasi:</p>
+      <ul>
+        <li><em>Fase 1. Questionario iniziale</em> (questa fase, ~6 minuti): domande su competenze digitali, atteggiamenti verso l'AI ed esperienza formativa</li>
+        <li><em>Fase 2. Compito diagnostico</em> (~15 minuti): lettura di vignette cliniche (brevi descrizioni di casi) e formulazione di diagnosi</li>
+      </ul>
+      <p><strong>TEMPO TOTALE STIMATO: 20-25 minuti</strong></p>
+      <h3>Volontarietà e Privacy</h3>
+      <ul>
+        <li>La partecipazione è completamente volontaria</li>
+        <li>I dati saranno raccolti in forma anonima</li>
+        <li>Non verranno richieste informazioni che permettano l'identificazione personale</li>
+        <li>È possibile ritirarsi in qualsiasi momento senza conseguenze</li>
+        <li>I dati saranno utilizzati esclusivamente per scopi di ricerca scientifica</li>
+        <li>I risultati aggregati potranno essere pubblicati, ma sempre in forma anonima</li>
+      </ul>
+      <h3>Consenso</h3>
+      <p>Procedendo con la compilazione del questionario, dichiaro di:</p>
+      <ul>
+        <li>Aver letto e compreso le informazioni sopra riportate</li>
+        <li>Acconsentire volontariamente a partecipare allo studio</li>
+        <li>Essere consapevole di poter ritirarmi in qualsiasi momento</li>
+      </ul>
+      <p style="margin-top:0.8rem;font-size:0.82rem;color:var(--muted)">Per domande o chiarimenti: 9410@studenti.ius.to</p>
+    </div>
+
+    <div class="question-block" style="margin-top:1.5rem">
+      <div class="question-label">Domanda 1 — Consenso *</div>
+      <div class="question-sublabel">Acconsente a partecipare allo studio?</div>
+      <div class="options-list" id="q1-options">
+        <label class="option-item"><input type="radio" name="q1" value="si"> Sì, acconsento</label>
+        <label class="option-item"><input type="radio" name="q1" value="no"> No, non acconsento</label>
+      </div>
+      <div class="error-msg" id="q1-err">Seleziona una risposta per continuare.</div>
+    </div>
+
+    <div class="btn-row"><button class="btn-primary" onclick="goNext(1)">Avanti →</button></div>
+  </div>
+
+  <!-- PAGINA 2: Sezione 1 -->
+  <div id="page-2" class="card hidden">
+    <div class="section-header">Sezione 1 — Informazioni generali</div>
+    <div class="section-intro">Le seguenti domande riguardano informazioni di base e la sua esperienza formativa in ambito psicologico.</div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 2 — Età *</div>
+      <input type="number" class="text-input" id="q2" min="18" max="99" placeholder="Es. 24">
+      <div class="error-msg" id="q2-err">Inserisci la tua età.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 3 — Genere *</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q3" value="Maschio"> Maschio</label>
+        <label class="option-item"><input type="radio" name="q3" value="Femmina"> Femmina</label>
+        <label class="option-item"><input type="radio" name="q3" value="Non binario"> Non binario</label>
+        <label class="option-item"><input type="radio" name="q3" value="Preferisco non rispondere"> Preferisco non rispondere</label>
+      </div>
+      <div class="error-msg" id="q3-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 4 — Esperienza formativa *</div>
+      <div class="question-sublabel">Qual è il suo livello di formazione?</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q4" value="1° anno Triennale"> 1° anno Triennale</label>
+        <label class="option-item"><input type="radio" name="q4" value="2° anno Triennale"> 2° anno Triennale</label>
+        <label class="option-item"><input type="radio" name="q4" value="3° anno Triennale"> 3° anno Triennale</label>
+        <label class="option-item"><input type="radio" name="q4" value="1° anno Magistrale"> 1° anno Magistrale</label>
+        <label class="option-item"><input type="radio" name="q4" value="2° anno Magistrale"> 2° anno Magistrale</label>
+        <label class="option-item"><input type="radio" name="q4" value="Scuola di Specializzazione"> Scuola di Specializzazione</label>
+      </div>
+      <div class="error-msg" id="q4-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 5 — Esperienza DSM/PDM *</div>
+      <div class="question-sublabel">Ha frequentato corsi universitari in cui ha affrontato il DSM-5 o il PDM?</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q5" value="Sì"> Sì</label>
+        <label class="option-item"><input type="radio" name="q5" value="No"> No</label>
+      </div>
+      <div class="error-msg" id="q5-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 6 — N. esami diagnostici *</div>
+      <div class="question-sublabel">Quanti esami ha sostenuto che includevano tematiche diagnostiche? (es. psicopatologia, psicodiagnostica, assessment clinico)</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q6" value="0"> 0</label>
+        <label class="option-item"><input type="radio" name="q6" value="1-2"> 1-2</label>
+        <label class="option-item"><input type="radio" name="q6" value="3-4"> 3-4</label>
+        <label class="option-item"><input type="radio" name="q6" value="5 o più"> 5 o più</label>
+      </div>
+      <div class="error-msg" id="q6-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">Domanda 7 — Tirocini con diagnosi *</div>
+      <div class="question-sublabel">Ha svolto tirocini in cui ha fatto o visto fare diagnosi cliniche?</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q7" value="No, non ho ancora fatto tirocini"> No, non ho ancora fatto tirocini</label>
+        <label class="option-item"><input type="radio" name="q7" value="Sì, nel tirocinio della triennale"> Sì, nel tirocinio della triennale</label>
+        <label class="option-item"><input type="radio" name="q7" value="Sì, nel tirocinio della magistrale"> Sì, nel tirocinio della magistrale</label>
+        <label class="option-item"><input type="radio" name="q7" value="Sì, nella Scuola di Specializzazione"> Sì, nella Scuola di Specializzazione</label>
+        <label class="option-item"><input type="radio" name="q7" value="Sì, in più di un tirocinio"> Sì, in più di un tirocinio</label>
+      </div>
+      <div class="error-msg" id="q7-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(2)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(2)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 3: Sezione 2 -->
+  <div id="page-3" class="card hidden">
+    <div class="section-header">Sezione 2 — Competenze digitali e uso dell'AI</div>
+    <div class="section-intro">Le seguenti domande riguardano le sue competenze nell'uso di tecnologie digitali e strumenti di Intelligenza Artificiale.</div>
+
+    <div class="question-block">
+      <div class="question-label" style="font-size:0.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em">Sottosezione 2.1 — Competenze digitali</div>
+      <div class="question-sublabel">Per ciascuna affermazione, indichi quanto si sente competente utilizzando la seguente scala:<br>1 = Per niente competente &nbsp;·&nbsp; 5 = Molto competente</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D8 — Competenza sviluppo/formattazione *</div>
+      <div class="question-sublabel">Sono in grado di sviluppare siti web, modificare documenti con formattazione avanzata, applicare licenze Creative Commons, utilizzare software statistici e convertire contenuti tra diversi formati</div>
+      <div class="likert-wrap" id="q8-wrap"></div>
+      <div class="error-msg" id="q8-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D9 — Competenza gestione file *</div>
+      <div class="question-sublabel">Sono in grado di archiviare, gestire ed eliminare contenuti salvando foto, video e screenshot in vari formati, scaricando file in cartelle pertinenti, rimuovendo connessioni sui social network e organizzando i file sul mio computer</div>
+      <div class="likert-wrap" id="q9-wrap"></div>
+      <div class="error-msg" id="q9-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D10 — Competenza comunicazione digitale *</div>
+      <div class="question-sublabel">Sono in grado di comunicare, collaborare e condividere con altri attraverso strumenti digitali, sia per insegnare, che per tenere presentazioni o diffondere software e applicazioni sui social network</div>
+      <div class="likert-wrap" id="q10-wrap"></div>
+      <div class="error-msg" id="q10-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D11 — Competenza valutazione informazioni *</div>
+      <div class="question-sublabel">Sono in grado di valutare oggetti, dispositivi e informazioni usando criteri appropriati, verificarne la sicurezza e l'autenticità, analizzarli sui social media e identificare potenziali truffe o frodi</div>
+      <div class="likert-wrap" id="q11-wrap"></div>
+      <div class="error-msg" id="q11-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D12 — Competenza sicurezza *</div>
+      <div class="question-sublabel">Sono in grado di proteggere i miei dispositivi smart e i miei account online cambiandone regolarmente le password, utilizzandone di diverse per ciascuno e proteggendo me stesso e gli altri da furti d'identità, molestie e diffamazione</div>
+      <div class="likert-wrap" id="q12-wrap"></div>
+      <div class="error-msg" id="q12-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block" style="margin-top:1.5rem">
+      <div class="question-label" style="font-size:0.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em">Sottosezione 2.2 — Uso AI</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D13 — Strumenti AI usati *</div>
+      <div class="question-sublabel">Quali strumenti di Intelligenza Artificiale Generativa utilizza nei suoi studi universitari? <em>(Può selezionare più opzioni)</em></div>
+      <div class="options-list" id="q13-options">
+        <label class="option-item"><input type="checkbox" name="q13" value="Nessuno"> Nessuno</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="ChatGPT"> ChatGPT</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="GPT Models (GPT-3, GPT-4, GPT-4o)"> GPT Models (GPT-3, GPT-4, GPT-4o)</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="DALL-E"> DALL-E</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="MidJourney"> MidJourney</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="Stable Diffusion"> Stable Diffusion</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="Gemini (Google)"> Gemini (Google)</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="Claude (Anthropic)"> Claude (Anthropic)</label>
+        <label class="option-item"><input type="checkbox" name="q13" value="Altro"> Altro</label>
+      </div>
+      <div class="error-msg" id="q13-err">Seleziona almeno una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D14 — Frequenza uso AI *</div>
+      <div class="question-sublabel">Con quale frequenza utilizza strumenti di Intelligenza Artificiale Generativa nei suoi studi universitari?</div>
+      <div class="options-list">
+        <label class="option-item"><input type="radio" name="q14" value="Mai"> Mai</label>
+        <label class="option-item"><input type="radio" name="q14" value="Raramente (meno di 1 volta al mese)"> Raramente (meno di 1 volta al mese)</label>
+        <label class="option-item"><input type="radio" name="q14" value="Occasionalmente (1-3 volte al mese)"> Occasionalmente (1-3 volte al mese)</label>
+        <label class="option-item"><input type="radio" name="q14" value="Frequentemente (1-3 volte a settimana)"> Frequentemente (1-3 volte a settimana)</label>
+        <label class="option-item"><input type="radio" name="q14" value="Quotidianamente"> Quotidianamente</label>
+      </div>
+      <div class="error-msg" id="q14-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D15 — Modalità uso AI *</div>
+      <div class="question-sublabel">Utilizza strumenti di Intelligenza Artificiale Generativa nei suoi studi universitari per: <em>(Può selezionare più opzioni)</em></div>
+      <div class="options-list">
+        <label class="option-item"><input type="checkbox" name="q15" value="Definire o chiarire concetti"> Definire o chiarire concetti</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Traduzione di testi"> Traduzione di testi</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Cercare letteratura accademica"> Cercare letteratura accademica</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Riassumere articoli, libri e video"> Riassumere articoli, libri e video</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Generare idee durante la scrittura"> Generare idee durante la scrittura</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Migliorare la qualità della scrittura"> Migliorare la qualità della scrittura</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Correggere e revisionare testi"> Correggere e revisionare testi</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Aiuto nello svolgimento dei compiti"> Aiuto nello svolgimento dei compiti</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Facilitare i lavori di gruppo"> Facilitare i lavori di gruppo</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Creare contenuti multimediali digitali e presentazioni"> Creare contenuti multimediali digitali e presentazioni</label>
+        <label class="option-item"><input type="checkbox" name="q15" value="Non utilizzo AI generativa per gli studi"> Non utilizzo AI generativa per gli studi</label>
+      </div>
+      <div class="error-msg" id="q15-err">Seleziona almeno una risposta.</div>
+    </div>
+
+    <div class="question-block" style="margin-top:1.5rem">
+      <div class="question-label" style="font-size:0.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em">Sottosezione 2.3 — Benefici AI</div>
+      <div class="question-sublabel">Tra i benefici riscontrati usando strumenti di Intelligenza Artificiale Generativa. Per ciascuna affermazione, indichi quanto è d'accordo:<br>1 = Fortemente in disaccordo &nbsp;·&nbsp; 5 = Fortemente d'accordo</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D16 — Facilità accesso *</div>
+      <div class="question-sublabel">È facile da accedere e utilizzare</div>
+      <div class="likert-wrap" id="q16-wrap"></div>
+      <div class="error-msg" id="q16-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D17 — Risparmio tempo *</div>
+      <div class="question-sublabel">Aiuta a risparmiare tempo nei compiti</div>
+      <div class="likert-wrap" id="q17-wrap"></div>
+      <div class="error-msg" id="q17-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D18 — Feedback immediato *</div>
+      <div class="question-sublabel">Fornisce feedback immediato</div>
+      <div class="likert-wrap" id="q18-wrap"></div>
+      <div class="error-msg" id="q18-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D19 — Aumenta fiducia *</div>
+      <div class="question-sublabel">Aumenta la fiducia durante l'apprendimento</div>
+      <div class="likert-wrap" id="q19-wrap"></div>
+      <div class="error-msg" id="q19-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block" style="margin-top:1.5rem">
+      <div class="question-label" style="font-size:0.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.04em">Sottosezione 2.4 — Difficoltà AI</div>
+      <div class="question-sublabel">Tra le difficoltà riscontrate nell'uso di strumenti di Intelligenza Artificiale Generativa. Per ciascuna affermazione, indichi quanto è d'accordo:<br>1 = Fortemente in disaccordo &nbsp;·&nbsp; 5 = Fortemente d'accordo</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D20 — Rischi privacy *</div>
+      <div class="question-sublabel">Comporta rischi per la privacy e la sicurezza dei dati</div>
+      <div class="likert-wrap" id="q20-wrap"></div>
+      <div class="error-msg" id="q20-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D21 — Informazioni inaffidabili *</div>
+      <div class="question-sublabel">Fornisce informazioni inaffidabili</div>
+      <div class="likert-wrap" id="q21-wrap"></div>
+      <div class="error-msg" id="q21-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D22 — Riferimenti falsi *</div>
+      <div class="question-sublabel">Fornisce riferimenti inaccurati o falsi</div>
+      <div class="likert-wrap" id="q22-wrap"></div>
+      <div class="error-msg" id="q22-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D23 — Limita autonomia *</div>
+      <div class="question-sublabel">Limita l'autonomia e restringe l'esperienza di apprendimento</div>
+      <div class="likert-wrap" id="q23-wrap"></div>
+      <div class="error-msg" id="q23-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(3)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(3)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 4: Sezione 3 -->
+  <div id="page-4" class="card hidden">
+    <div class="section-header">Sezione 3 — Atteggiamenti verso l'Intelligenza Artificiale</div>
+    <div class="section-intro">Le seguenti affermazioni riguardano opinioni e atteggiamenti generali verso l'Intelligenza Artificiale.<br>Indichi quanto è d'accordo con ciascuna affermazione:<br><strong>1 = Fortemente in disaccordo &nbsp;·&nbsp; 5 = Fortemente d'accordo</strong></div>
+
+    <div class="question-block">
+      <div class="question-label">D24 — Interesse per l'AI *</div>
+      <div class="question-sublabel">Sono interessato all'uso dei sistemi di Intelligenza Artificiale nella mia vita quotidiana</div>
+      <div class="likert-wrap" id="q24-wrap"></div>
+      <div class="error-msg" id="q24-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D25 — Opinione sull'AI *</div>
+      <div class="question-sublabel">Trovo l'Intelligenza Artificiale oscura</div>
+      <div class="likert-wrap" id="q25-wrap"></div>
+      <div class="error-msg" id="q25-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D26 — Credenza sull'AI *</div>
+      <div class="question-sublabel">L'Intelligenza Artificiale potrebbe prendere il controllo delle persone</div>
+      <div class="likert-wrap" id="q26-wrap"></div>
+      <div class="error-msg" id="q26-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D27 — Pericolosità dell'AI *</div>
+      <div class="question-sublabel">Penso che l'Intelligenza Artificiale sia pericolosa</div>
+      <div class="likert-wrap" id="q27-wrap"></div>
+      <div class="error-msg" id="q27-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D28 — Impatto dell'AI *</div>
+      <div class="question-sublabel">L'Intelligenza Artificiale può avere un impatto positivo sul benessere delle persone</div>
+      <div class="likert-wrap" id="q28-wrap"></div>
+      <div class="error-msg" id="q28-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D29 — Opinione sull'AI *</div>
+      <div class="question-sublabel">L'Intelligenza Artificiale è entusiasmante</div>
+      <div class="likert-wrap" id="q29-wrap"></div>
+      <div class="error-msg" id="q29-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D30 — Futuro e AI *</div>
+      <div class="question-sublabel">Gran parte della società beneficerà di un futuro ricco/pieno di intelligenza artificiale</div>
+      <div class="likert-wrap" id="q30-wrap"></div>
+      <div class="error-msg" id="q30-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D31 — Utilizzo AI *</div>
+      <div class="question-sublabel">Vorrei utilizzare l'Intelligenza Artificiale nel mio lavoro</div>
+      <div class="likert-wrap" id="q31-wrap"></div>
+      <div class="error-msg" id="q31-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D32 — Uso futuro dell'AI *</div>
+      <div class="question-sublabel">Rabbrividisco/tremo per il disagio quando penso agli usi futuri dell'Intelligenza Artificiale</div>
+      <div class="likert-wrap" id="q32-wrap"></div>
+      <div class="error-msg" id="q32-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D33 — Impatto dell'AI *</div>
+      <div class="question-sublabel">Le persone come me soffriranno se l'Intelligenza Artificiale verrà utilizzata sempre di più</div>
+      <div class="likert-wrap" id="q33-wrap"></div>
+      <div class="error-msg" id="q33-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(4)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(4)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 5: Sezione 4 XAI -->
+  <div id="page-5" class="card hidden">
+    <div class="section-header">Sezione 4 — Spiegabilità dell'Intelligenza Artificiale</div>
+    <div class="section-intro">Le domande seguenti riguardano sistemi di AI 'spiegabili' (XAI), cioè sistemi che forniscono spiegazioni su COME arrivano alle loro conclusioni.<br><br><strong>ATTENZIONE: Per le prossime domande, userà una scala da 1 a 7</strong><br>1 = Fortemente in disaccordo &nbsp;·&nbsp; 7 = Fortemente d'accordo</div>
+
+    <div class="question-block">
+      <div class="question-label">D34 — Importanza XAI *</div>
+      <div class="question-sublabel">È importante per me capire COME l'Intelligenza Artificiale arriva a una conclusione diagnostica</div>
+      <div class="likert-wrap" id="q34-wrap"></div>
+      <div class="error-msg" id="q34-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D35 — Preferenza XAI *</div>
+      <div class="question-sublabel">Preferirei usare un sistema di AI che spiega le sue decisioni piuttosto che uno che non lo fa</div>
+      <div class="likert-wrap" id="q35-wrap"></div>
+      <div class="error-msg" id="q35-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D36 — Fiducia XAI *</div>
+      <div class="question-sublabel">Mi fiderei di più di un'AI che spiega il ragionamento diagnostico rispetto a una che fornisce solo la diagnosi</div>
+      <div class="likert-wrap" id="q36-wrap"></div>
+      <div class="error-msg" id="q36-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D37 — Accettazione XAI *</div>
+      <div class="question-sublabel">Sarei più propenso/a ad accettare un suggerimento diagnostico se l'AI mi spiegasse come è arrivata a quella conclusione</div>
+      <div class="likert-wrap" id="q37-wrap"></div>
+      <div class="error-msg" id="q37-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D38 — Contesto diagnostico XAI *</div>
+      <div class="question-sublabel">In ambito diagnostico, avrei bisogno di capire il ragionamento dell'AI prima di accettare il suo suggerimento</div>
+      <div class="likert-wrap" id="q38-wrap"></div>
+      <div class="error-msg" id="q38-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D39 — Alto rischio XAI *</div>
+      <div class="question-sublabel">Per decisioni cliniche ad alto rischio, una spiegazione dettagliata dell'AI è indispensabile</div>
+      <div class="likert-wrap" id="q39-wrap"></div>
+      <div class="error-msg" id="q39-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(5)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(5)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 6: Sezione 5 Vigilanza -->
+  <div id="page-6" class="card hidden">
+    <div class="section-header">Sezione 5 — Vigilanza Critica verso l'Intelligenza Artificiale</div>
+    <div class="section-intro">Immagini di essere molto impegnato/a e di avere molto da fare in ambito clinico/diagnostico.<br>Le seguenti affermazioni riguardano l'uso di sistemi di Intelligenza Artificiale per supportare decisioni diagnostiche.<br><br><strong>ATTENZIONE: Si ritorna alla scala da 1 a 5</strong><br>1 = Fortemente in disaccordo &nbsp;·&nbsp; 5 = Fortemente d'accordo</div>
+
+    <div class="question-block">
+      <div class="question-label">D40 — Attenzione per l'AI *</div>
+      <div class="question-sublabel">Anche se un sistema di Intelligenza Artificiale può aiutarmi in un compito diagnostico, dovrei prestare attenzione alle sue prestazioni</div>
+      <div class="likert-wrap" id="q40-wrap"></div>
+      <div class="error-msg" id="q40-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D41 — Controllo dell'AI *</div>
+      <div class="question-sublabel">Anche se ho molto da fare, è probabile che controlli attentamente il sistema di Intelligenza Artificiale per individuare errori</div>
+      <div class="likert-wrap" id="q41-wrap"></div>
+      <div class="error-msg" id="q41-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D42 — Monitoraggio dell'AI *</div>
+      <div class="question-sublabel">Monitorare costantemente le prestazioni di un sistema di Intelligenza Artificiale è una perdita di tempo</div>
+      <div class="likert-wrap" id="q42-wrap"></div>
+      <div class="error-msg" id="q42-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D43 — Attenzione sull'AI *</div>
+      <div class="question-sublabel">Di solito non è necessario prestare molta attenzione al sistema di Intelligenza Artificiale quando è in funzione</div>
+      <div class="likert-wrap" id="q43-wrap"></div>
+      <div class="error-msg" id="q43-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D44 — Tempo e AI *</div>
+      <div class="question-sublabel">Controllare attentamente il sistema di Intelligenza Artificiale toglie tempo a cose più importanti o interessanti</div>
+      <div class="likert-wrap" id="q44-wrap"></div>
+      <div class="error-msg" id="q44-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(6)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(6)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 7: Sezione 6 Consapevolezza -->
+  <div id="page-7" class="card hidden">
+    <div class="section-header">Sezione 6 — Consapevolezza dei Limiti dell'Intelligenza Artificiale</div>
+    <div class="section-intro">Le ultime domande riguardano la consapevolezza dei limiti dei sistemi di Intelligenza Artificiale.<br>Indichi quanto è d'accordo con le seguenti affermazioni:<br><strong>1 = Fortemente in disaccordo &nbsp;·&nbsp; 5 = Fortemente d'accordo</strong></div>
+
+    <div class="question-block">
+      <div class="question-label">D45 — Consapevolezza errori *</div>
+      <div class="question-sublabel">Sono consapevole che l'Intelligenza Artificiale può commettere errori, anche in compiti diagnostici</div>
+      <div class="likert-wrap" id="q45-wrap"></div>
+      <div class="error-msg" id="q45-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label">D46 — Consapevolezza bias *</div>
+      <div class="question-sublabel">Anche i sistemi di AI più avanzati hanno limitazioni e bias che devo considerare</div>
+      <div class="likert-wrap" id="q46-wrap"></div>
+      <div class="error-msg" id="q46-err">Seleziona una risposta.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goPrev(7)">← Indietro</button>
+      <button class="btn-primary" onclick="goNext(7)">Avanti →</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 8: Transizione alle vignette -->
+  <div id="page-8" class="card hidden">
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2.5rem;margin-bottom:1rem">✓</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:1rem">Fase 1 completata!</h2>
+      <p style="color:var(--muted);line-height:1.7;max-width:500px;margin:0 auto 1.5rem">Ha completato con successo la <strong>Fase 1</strong> del questionario (46 domande).<br>Ora inizierà la <strong>Fase 2 — Compito diagnostico</strong>: le verranno presentate 9 brevi descrizioni di casi clinici. Per ciascuna, dovrà selezionare la diagnosi più probabile e indicare il suo livello di fiducia nella risposta.</p>
+      <p style="color:var(--muted);font-size:0.85rem">Tempo stimato: ~15 minuti</p>
+    </div>
+    <div class="btn-row" style="margin-top:1.5rem">
+      <button class="btn-primary" onclick="startVignettes()">Inizia il compito diagnostico →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FASE 2 - VIGNETTE                           -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div id="vignette-progress" class="progress-wrap hidden">
+    <div class="progress-label">
+      <span>Vignetta <span id="vig-current">1</span> di 9</span>
+      <span id="vig-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="vig-fill" style="width:0%"></div></div>
   </div>
 
   <div id="vignette-card" class="card hidden">
-    <div class="condition-badge" id="cond-badge">Condizione 1</div>
-    <div class="vignette-text" id="vignette-text">Testo vignetta...</div>
+    <div class="condition-badge" id="vig-badge">Vignetta 1 di 9</div>
+    <div class="vignette-text" id="vig-text"></div>
 
-    <!-- AI box BEFORE (conditions 2,3,4,5) -->
     <div id="ai-before" class="ai-box hidden">
       <div class="ai-box-label">Suggerimento AI</div>
-      <div class="ai-box-diagnosis" id="ai-before-diagnosis">–</div>
-      <div class="ai-box-justification hidden" id="ai-before-justification">–</div>
+      <div class="ai-box-diagnosis" id="ai-before-diagnosis"></div>
+      <div class="ai-box-justification hidden" id="ai-before-justification"></div>
     </div>
 
-    <div class="options-label">Seleziona la diagnosi più probabile</div>
-    <div class="options-list" id="options-list"></div>
+    <div class="vignette-options-label">Seleziona la diagnosi più probabile</div>
+    <div id="vig-options"></div>
 
     <div class="confidence-section">
       <div class="confidence-label">Fiducia nella diagnosi selezionata</div>
       <div class="confidence-row">
-        <input type="range" id="confidence-slider" min="0" max="100" value="50">
-        <div class="confidence-value"><span id="confidence-val">50</span>%</div>
+        <input type="range" id="conf-slider" min="0" max="100" value="50">
+        <div class="confidence-value"><span id="conf-val">50</span>%</div>
       </div>
       <div class="confidence-ends"><span>0% — Per nulla sicuro/a</span><span>100% — Completamente sicuro/a</span></div>
     </div>
 
-    <!-- AI box AFTER (conditions 6,7,8,9) -->
     <div id="ai-after" class="hidden">
-      <div class="ai-box" id="ai-after-box">
-        <div class="ai-box-label">Risposta dell'AI (ora visibile)</div>
-        <div class="ai-box-diagnosis" id="ai-after-diagnosis">–</div>
-        <div class="ai-box-justification hidden" id="ai-after-justification">–</div>
+      <div class="ai-box">
+        <div class="ai-box-label">Suggerimento AI</div>
+        <div class="ai-box-diagnosis" id="ai-after-diagnosis"></div>
+        <div class="ai-box-justification hidden" id="ai-after-justification"></div>
       </div>
       <div class="modify-section">
-        <h4>Vuoi modificare la tua risposta?</h4>
+        <h4>Vuole modificare la sua risposta?</h4>
         <div class="modify-toggle">
           <button class="toggle-btn" id="btn-keep" onclick="setModify('keep')">No, mantengo la mia risposta</button>
           <button class="toggle-btn" id="btn-change" onclick="setModify('change')">Sì, voglio modificarla</button>
         </div>
         <div id="modify-options" class="hidden">
-          <div class="options-label" style="margin-top:0.8rem">Nuova diagnosi</div>
-          <div class="options-list" id="modify-options-list"></div>
+          <div class="vignette-options-label" style="margin-top:0.8rem">Nuova diagnosi</div>
+          <div id="modify-options-list"></div>
           <div class="confidence-section" style="margin-top:1rem">
             <div class="confidence-label">Nuova fiducia</div>
             <div class="confidence-row">
-              <input type="range" id="confidence-slider-2" min="0" max="100" value="50">
-              <div class="confidence-value"><span id="confidence-val-2">50</span>%</div>
+              <input type="range" id="conf-slider-2" min="0" max="100" value="50">
+              <div class="confidence-value"><span id="conf-val-2">50</span>%</div>
             </div>
             <div class="confidence-ends"><span>0%</span><span>100%</span></div>
           </div>
@@ -297,33 +984,262 @@
       </div>
     </div>
 
-    <button class="btn-primary" id="btn-next" onclick="nextVignette()" disabled>Conferma e continua →</button>
+    <button class="btn-primary" id="btn-next-vig" onclick="nextVignette()" disabled style="margin-top:1rem">Conferma e continua →</button>
   </div>
 
+  <!-- SCHERMATA FINALE -->
   <div id="end-card" class="card end-screen hidden">
     <div class="checkmark">✓</div>
-    <h2>Grazie per la partecipazione</h2>
-    <p>Hai completato tutte le 9 vignette cliniche. I tuoi dati sono stati registrati correttamente.</p>
+    <h2>Grazie per la partecipazione!</h2>
+    <p>Ha completato tutte e 9 le vignette cliniche.</p>
+    <p>I suoi dati contribuiranno alla ricerca sull'uso dell'AI nella diagnosi clinica.</p>
+    <p style="font-size:0.82rem;margin-top:1rem">Per domande: 9410@studenti.ius.to</p>
     <div class="saving-msg" id="saving-msg"></div>
   </div>
 
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-// ⚠️  CONFIGURAZIONE – modifica questi valori
-// ─────────────────────────────────────────────
-
-// 1. Incolla qui l'URL del tuo Apps Script dopo aver fatto "Distribuisci"
+// ═══════════════════════════════════════════════════
+// CONFIGURAZIONE
+// ═══════════════════════════════════════════════════
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx6zJ1jLXQddiRPx4dnJhZkij7lxHbSAv684-nphRlqHd0uyYw-WtQ4lJzBsZO0OhsUGQ/exec";
+const SAVE_TO_SHEETS = true; // → cambia in true prima di distribuire
 
-// 2. Imposta a true quando sei pronta per raccogliere dati reali
-//    Con false i dati vengono solo stampati in console (modalità test)
-const SAVE_TO_SHEETS = true;
+// ═══════════════════════════════════════════════════
+// DATI Q1 RACCOLTI
+// ═══════════════════════════════════════════════════
+const q1Answers = {};
 
-// ─────────────────────────────────────────────
-// DATI VIGNETTE
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
+// PAGINE Q1
+// ═══════════════════════════════════════════════════
+const TOTAL_PAGES = 8;
+let currentPage = 1;
+
+// Percentuale di avanzamento per pagina (include vignette)
+const PAGE_LABELS = [
+  'Informazioni e Consenso',
+  'Sezione 1 — Informazioni generali',
+  'Sezione 2 — Competenze digitali e uso AI',
+  'Sezione 3 — Atteggiamenti verso l\'AI',
+  'Sezione 4 — Spiegabilità XAI',
+  'Sezione 5 — Vigilanza Critica',
+  'Sezione 6 — Consapevolezza dei Limiti',
+  'Fase 2 — Compito diagnostico'
+];
+
+function updateProgress(page) {
+  const pct = Math.round(((page - 1) / (TOTAL_PAGES + 9)) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-label-text').textContent = PAGE_LABELS[page - 1] || '';
+}
+
+function showPage(n) {
+  for (let i = 1; i <= TOTAL_PAGES; i++) {
+    document.getElementById('page-' + i).classList.add('hidden');
+  }
+  document.getElementById('page-' + n).classList.remove('hidden');
+  updateProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goPrev(currentP) {
+  showPage(currentP - 1);
+  currentPage = currentP - 1;
+}
+
+// ═══════════════════════════════════════════════════
+// LIKERT BUILDER
+// ═══════════════════════════════════════════════════
+function buildLikert(containerId, qName, max) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+  const scale = document.createElement('div');
+  scale.className = 'likert-scale';
+  for (let i = 1; i <= max; i++) {
+    const opt = document.createElement('label');
+    opt.className = 'likert-option';
+    opt.dataset.q = qName;
+    opt.dataset.val = i;
+    opt.innerHTML = `<input type="radio" name="${qName}" value="${i}" style="display:none"> ${i}`;
+    opt.onclick = () => {
+      document.querySelectorAll(`.likert-option[data-q="${qName}"]`).forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      const radio = opt.querySelector('input');
+      radio.checked = true;
+      const errEl = document.getElementById(qName.replace('q', 'q') + '-err');
+      if (errEl) errEl.classList.remove('show');
+    };
+    scale.appendChild(opt);
+  }
+  wrap.appendChild(scale);
+  const ends = document.createElement('div');
+  ends.className = 'likert-ends';
+  ends.innerHTML = `<span>Fortemente in disaccordo</span><span>Fortemente d'accordo</span>`;
+  wrap.appendChild(ends);
+}
+
+// Costruisci tutte le scale
+const likerts5 = ['q8','q9','q10','q11','q12','q16','q17','q18','q19','q20','q21','q22','q23',
+                  'q24','q25','q26','q27','q28','q29','q30','q31','q32','q33',
+                  'q40','q41','q42','q43','q44','q45','q46'];
+const likerts7 = ['q34','q35','q36','q37','q38','q39'];
+
+likerts5.forEach(q => buildLikert(q + '-wrap', q, 5));
+likerts7.forEach(q => buildLikert(q + '-wrap', q, 7));
+
+// ═══════════════════════════════════════════════════
+// VALIDAZIONE E NAVIGAZIONE
+// ═══════════════════════════════════════════════════
+function getRadioValue(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : null;
+}
+function getCheckboxValues(name) {
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(e => e.value);
+}
+
+function showErr(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('show');
+}
+function hideErr(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('show');
+}
+
+function validatePage(page) {
+  let valid = true;
+
+  if (page === 1) {
+    const v = getRadioValue('q1');
+    if (!v) { showErr('q1-err'); valid = false; }
+    else hideErr('q1-err');
+  }
+
+  if (page === 2) {
+    const age = document.getElementById('q2').value;
+    if (!age || age < 18 || age > 99) { showErr('q2-err'); valid = false; } else hideErr('q2-err');
+    ['q3','q4','q5','q6','q7'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  if (page === 3) {
+    ['q8','q9','q10','q11','q12'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+    if (getCheckboxValues('q13').length === 0) { showErr('q13-err'); valid = false; } else hideErr('q13-err');
+    if (!getRadioValue('q14')) { showErr('q14-err'); valid = false; } else hideErr('q14-err');
+    if (getCheckboxValues('q15').length === 0) { showErr('q15-err'); valid = false; } else hideErr('q15-err');
+    ['q16','q17','q18','q19','q20','q21','q22','q23'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  if (page === 4) {
+    ['q24','q25','q26','q27','q28','q29','q30','q31','q32','q33'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  if (page === 5) {
+    ['q34','q35','q36','q37','q38','q39'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  if (page === 6) {
+    ['q40','q41','q42','q43','q44'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  if (page === 7) {
+    ['q45','q46'].forEach(q => {
+      if (!getRadioValue(q)) { showErr(q + '-err'); valid = false; } else hideErr(q + '-err');
+    });
+  }
+
+  return valid;
+}
+
+function collectPage(page) {
+  if (page === 1) q1Answers.consenso = getRadioValue('q1');
+  if (page === 2) {
+    q1Answers.eta = document.getElementById('q2').value;
+    q1Answers.genere = getRadioValue('q3');
+    q1Answers.formazione = getRadioValue('q4');
+    q1Answers.dsm_pdm = getRadioValue('q5');
+    q1Answers.esami_diagnostici = getRadioValue('q6');
+    q1Answers.tirocini = getRadioValue('q7');
+  }
+  if (page === 3) {
+    ['q8','q9','q10','q11','q12','q16','q17','q18','q19','q20','q21','q22','q23'].forEach(q => {
+      q1Answers[q] = getRadioValue(q);
+    });
+    q1Answers.q13 = getCheckboxValues('q13').join('; ');
+    q1Answers.q14 = getRadioValue('q14');
+    q1Answers.q15 = getCheckboxValues('q15').join('; ');
+  }
+  if (page === 4) {
+    ['q24','q25','q26','q27','q28','q29','q30','q31','q32','q33'].forEach(q => {
+      q1Answers[q] = getRadioValue(q);
+    });
+  }
+  if (page === 5) {
+    ['q34','q35','q36','q37','q38','q39'].forEach(q => {
+      q1Answers[q] = getRadioValue(q);
+    });
+  }
+  if (page === 6) {
+    ['q40','q41','q42','q43','q44'].forEach(q => {
+      q1Answers[q] = getRadioValue(q);
+    });
+  }
+  if (page === 7) {
+    ['q45','q46'].forEach(q => {
+      q1Answers[q] = getRadioValue(q);
+    });
+  }
+}
+
+function goNext(page) {
+  if (!validatePage(page)) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // scroll to first error
+    const firstErr = document.querySelector('.error-msg.show');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  collectPage(page);
+
+  // Se non consente, mostra messaggio di fine
+  if (page === 1 && q1Answers.consenso === 'no') {
+    document.getElementById('page-1').classList.add('hidden');
+    document.getElementById('progress-wrap').classList.add('hidden');
+    const endCard = document.getElementById('end-card');
+    endCard.classList.remove('hidden');
+    document.querySelector('#end-card h2').textContent = 'Grazie per il suo tempo';
+    document.querySelector('#end-card .checkmark').textContent = '';
+    document.querySelectorAll('#end-card p').forEach((p, i) => {
+      if (i === 0) p.textContent = 'Ha scelto di non partecipare allo studio.';
+      else p.textContent = '';
+    });
+    return;
+  }
+
+  if (page < TOTAL_PAGES) {
+    showPage(page + 1);
+    currentPage = page + 1;
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// VIGNETTE - DATI
+// ═══════════════════════════════════════════════════
 const VIGNETTES = [
   {
     id: 1,
@@ -370,7 +1286,7 @@ const VIGNETTES = [
     correct: "A",
     ai_correct: "Negligenza Spaziale Unilaterale (Eminegligenza Sinistra)",
     ai_wrong: "Emianopsia Omonima Sinistra",
-    justification_correct: "Il paziente non riesce a orientarsi verso stimoli nell'emispazio sinistro nonostante la visione sia intatta — urta ostacoli non per deficit visivo ma per mancata attenzione allo spazio controlaterale alla lesione destra. L'assenza di deficit motori e di agnosia conferma un disturbo attentivo-spaziale selettivo.",
+    justification_correct: "Il paziente non riesce a orientarsi verso stimoli nell'emispazio sinistro nonostante la visione sia intatta. Urta ostacoli non per deficit visivo ma per mancata attenzione allo spazio controlaterale alla lesione destra. L'assenza di deficit motori e di agnosia conferma un disturbo attentivo-spaziale selettivo.",
     justification_wrong: "La lesione temporo-parietale destra ha compromesso le vie visive che elaborano il campo visivo sinistro. Il paziente urta ostacoli sul lato sinistro e fatica a trovare oggetti in quello spazio perché non li percepisce visivamente, quadro coerente con una perdita del campo visivo sinistro.",
   },
   {
@@ -450,7 +1366,7 @@ const VIGNETTES = [
     correct: "C",
     ai_correct: "Disturbo Borderline di Personalità (DBP)",
     ai_wrong: "Disturbo Ossessivo-Compulsivo (DOC)",
-    justification_correct: "Francesco presenta il pattern tipico del DBP: relazioni intense e instabili con oscillazione idealizzazione-svalutazione, instabilità identitaria, paura dell'abbandono espressa come ossessione per la morte dei genitori, e comportamenti impulsivi emergenti nel rapporto con il cibo. Il quadro è pervasivo e non limitato ai sintomi ossessivi.",
+    justification_correct: "Francesco presenta il pattern tipico del DBP: relazioni intense e instabili con oscillazione idealizzazione-svalutazione, instabilità identitaria, paura dell'abbandono espressa come ossessione per la morte dei genitori, e comportamenti impulsivi emergenti nel rapporto con il cibo.",
     justification_wrong: "Il pensiero ricorrente e intrusivo sulla possibilità che i genitori muoiano, che Francesco riconosce come irrazionale ma non riesce a controllare, compromette il funzionamento in più aree della vita. Questo pattern di ossessione egodistonica con interferenza significativa è caratteristico del Disturbo Ossessivo-Compulsivo.",
   },
   {
@@ -471,14 +1387,8 @@ const VIGNETTES = [
   },
 ];
 
-// ─────────────────────────────────────────────
-// CONDITIONS
-// ─────────────────────────────────────────────
 const CONDITIONS = [1,2,3,4,5,6,7,8,9];
 
-// ─────────────────────────────────────────────
-// LATIN SQUARE 9x9 (cyclic)
-// ─────────────────────────────────────────────
 function buildLatinSquare() {
   const sq = [];
   for (let r = 0; r < 9; r++) {
@@ -490,103 +1400,75 @@ function buildLatinSquare() {
 }
 const LATIN_SQUARE = buildLatinSquare();
 
-// ─────────────────────────────────────────────
-// PARTICIPANT ID & VERSION
-// Legge ?id=XXX&v=N dall'URL (passati da Google Forms)
-// ─────────────────────────────────────────────
-function getUrlParam(name) {
-  return new URLSearchParams(window.location.search).get(name);
-}
-
 function assignVersion() {
-  const v = parseInt(getUrlParam('v'));
+  const v = parseInt(new URLSearchParams(window.location.search).get('v'));
   if (!isNaN(v) && v >= 0 && v <= 8) return v;
-  return Math.floor(Math.random() * 9); // fallback random
+  return Math.floor(Math.random() * 9);
 }
 
-const participantId = getUrlParam('id') || ('anon_' + Date.now());
-let version = assignVersion();
-
-// ─────────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────────
-let currentStep = 0;
-let answers = [];
+const version = assignVersion();
+let vigStep = 0;
+let vigAnswers = [];
 let selectedOption = null;
 let modifyChoice = null;
 let selectedModifyOption = null;
 let aiRevealed = false;
 
-function getCurrentVignette() {
-  return VIGNETTES[LATIN_SQUARE[version][currentStep]];
-}
-function getCurrentCondition() {
-  return CONDITIONS[currentStep];
-}
+function getCurrentVignette() { return VIGNETTES[LATIN_SQUARE[version][vigStep]]; }
+function getCurrentCondition() { return CONDITIONS[vigStep]; }
 
-// ─────────────────────────────────────────────
-// RENDER
-// ─────────────────────────────────────────────
-function render() {
-  document.getElementById('progress-wrap').classList.remove('hidden');
+// ═══════════════════════════════════════════════════
+// AVVIO VIGNETTE
+// ═══════════════════════════════════════════════════
+function startVignettes() {
+  document.getElementById('page-8').classList.add('hidden');
+  document.getElementById('progress-wrap').classList.add('hidden');
+  document.getElementById('vignette-progress').classList.remove('hidden');
   document.getElementById('vignette-card').classList.remove('hidden');
+  renderVignette();
+}
 
+function renderVignette() {
   const vignette = getCurrentVignette();
   const cond = getCurrentCondition();
 
-  const pct = Math.round((currentStep / 9) * 100);
-  document.getElementById('prog-current').textContent = currentStep + 1;
-  document.getElementById('prog-pct').textContent = pct + '%';
-  document.getElementById('prog-fill').style.width = pct + '%';
-
-  const condLabels = {
-    1: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    2: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    3: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    4: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    5: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    6: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    7: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    8: 'Vignetta ' + (currentStep + 1) + ' di 9',
-    9: 'Vignetta ' + (currentStep + 1) + ' di 9',
-  };
-  document.getElementById('cond-badge').textContent = condLabels[cond];
-  document.getElementById('vignette-text').textContent = vignette.text;
+  const pct = Math.round((vigStep / 9) * 100);
+  document.getElementById('vig-current').textContent = vigStep + 1;
+  document.getElementById('vig-pct').textContent = pct + '%';
+  document.getElementById('vig-fill').style.width = pct + '%';
+  document.getElementById('vig-badge').textContent = 'Vignetta ' + (vigStep + 1) + ' di 9';
+  document.getElementById('vig-text').textContent = vignette.text;
 
   // Reset
-  selectedOption = null;
-  modifyChoice = null;
-  selectedModifyOption = null;
-  aiRevealed = false;
-  document.getElementById('btn-next').disabled = true;
+  selectedOption = null; modifyChoice = null; selectedModifyOption = null; aiRevealed = false;
+  document.getElementById('btn-next-vig').disabled = true;
   document.getElementById('ai-before').classList.add('hidden');
   document.getElementById('ai-after').classList.add('hidden');
   document.getElementById('modify-options').classList.add('hidden');
   document.getElementById('btn-keep').classList.remove('active');
   document.getElementById('btn-change').classList.remove('active');
-  document.getElementById('confidence-slider').value = 50;
-  document.getElementById('confidence-val').textContent = 50;
-  document.getElementById('confidence-slider-2').value = 50;
-  document.getElementById('confidence-val-2').textContent = 50;
+  document.getElementById('conf-slider').value = 50;
+  document.getElementById('conf-val').textContent = 50;
+  document.getElementById('conf-slider-2').value = 50;
+  document.getElementById('conf-val-2').textContent = 50;
 
-  buildOptions('options-list', vignette.options, (letter) => {
+  buildVigOptions('vig-options', vignette.options, (letter) => {
     selectedOption = letter;
-    highlightOption('options-list', letter);
+    highlightVigOption('vig-options', letter);
     if (cond >= 6 && !aiRevealed) revealAIAfter(vignette, cond);
-    checkCanProceed();
+    checkVigCanProceed();
   });
 
-  buildOptions('modify-options-list', vignette.options, (letter) => {
+  buildVigOptions('modify-options-list', vignette.options, (letter) => {
     selectedModifyOption = letter;
-    highlightOption('modify-options-list', letter);
-    checkCanProceed();
+    highlightVigOption('modify-options-list', letter);
+    checkVigCanProceed();
   });
 
   if (cond >= 2 && cond <= 5) {
     const isCorrect = (cond === 2 || cond === 4);
     const hasJust   = (cond === 4 || cond === 5);
     const aiBox = document.getElementById('ai-before');
-    aiBox.className = 'ai-box correct';
     aiBox.classList.remove('hidden');
     document.getElementById('ai-before-diagnosis').textContent =
       isCorrect ? vignette.ai_correct : vignette.ai_wrong;
@@ -598,16 +1480,15 @@ function render() {
       justEl.classList.add('hidden');
     }
   }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function revealAIAfter(vignette, cond) {
   aiRevealed = true;
   const isCorrect = (cond === 6 || cond === 8);
   const hasJust   = (cond === 8 || cond === 9);
-  const afterWrap = document.getElementById('ai-after');
-  afterWrap.classList.remove('hidden');
-  const box = document.getElementById('ai-after-box');
-  box.className = 'ai-box correct';
+  document.getElementById('ai-after').classList.remove('hidden');
   document.getElementById('ai-after-diagnosis').textContent =
     isCorrect ? vignette.ai_correct : vignette.ai_wrong;
   const justEl = document.getElementById('ai-after-justification');
@@ -619,16 +1500,16 @@ function revealAIAfter(vignette, cond) {
   }
 }
 
-function buildOptions(containerId, options, onSelect) {
+function buildVigOptions(containerId, options, onSelect) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   options.forEach(opt => {
     const btn = document.createElement('button');
-    btn.className = 'option-btn';
+    btn.className = 'vignette-option';
     btn.dataset.letter = opt.letter;
     btn.innerHTML = `<span class="option-letter">${opt.letter}</span><span>${opt.text}</span>`;
     btn.onclick = () => {
-      Array.from(container.querySelectorAll('.option-btn')).forEach(b => b.classList.remove('selected'));
+      Array.from(container.querySelectorAll('.vignette-option')).forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
       onSelect(opt.letter);
     };
@@ -636,21 +1517,20 @@ function buildOptions(containerId, options, onSelect) {
   });
 }
 
-function highlightOption(containerId, letter) {
-  const container = document.getElementById(containerId);
-  Array.from(container.querySelectorAll('.option-btn')).forEach(b => {
+function highlightVigOption(containerId, letter) {
+  Array.from(document.getElementById(containerId).querySelectorAll('.vignette-option')).forEach(b => {
     b.classList.toggle('selected', b.dataset.letter === letter);
   });
 }
 
-function checkCanProceed() {
+function checkVigCanProceed() {
   const cond = getCurrentCondition();
   let ok = selectedOption !== null;
   if (cond >= 6 && aiRevealed) {
     if (modifyChoice === null) ok = false;
     if (modifyChoice === 'change' && selectedModifyOption === null) ok = false;
   }
-  document.getElementById('btn-next').disabled = !ok;
+  document.getElementById('btn-next-vig').disabled = !ok;
 }
 
 function setModify(choice) {
@@ -659,66 +1539,66 @@ function setModify(choice) {
   document.getElementById('btn-change').classList.toggle('active', choice === 'change');
   document.getElementById('modify-options').classList.toggle('hidden', choice !== 'change');
   if (choice === 'keep') selectedModifyOption = null;
-  checkCanProceed();
+  checkVigCanProceed();
 }
 
 function nextVignette() {
   const vignette = getCurrentVignette();
   const cond = getCurrentCondition();
-  const conf1 = parseInt(document.getElementById('confidence-slider').value);
-  const conf2 = parseInt(document.getElementById('confidence-slider-2').value);
+  const conf1 = parseInt(document.getElementById('conf-slider').value);
+  const conf2 = parseInt(document.getElementById('conf-slider-2').value);
+
+  const correctAnswers = { 1:'A',2:'B',3:'A',4:'C',5:'A',6:'D',7:'A',8:'C',9:'C' };
+  const correct = correctAnswers[vignette.id];
 
   const record = {
-    step: currentStep + 1,
-    condition: cond,
+    version, step: vigStep + 1, condition: cond,
     vignette_id: vignette.id,
     answer: selectedOption,
+    correct,
+    is_correct: selectedOption === correct ? 1 : 0,
     confidence: conf1,
-    ai_revealed: aiRevealed,
+    ai_revealed: aiRevealed ? 1 : 0,
   };
   if (cond >= 6) {
-    record.modify_choice = modifyChoice;
+    record.modify_choice = modifyChoice || '';
     if (modifyChoice === 'change') {
       record.answer_revised = selectedModifyOption;
+      record.is_correct_revised = selectedModifyOption === correct ? 1 : 0;
       record.confidence_revised = conf2;
     }
   }
-  answers.push(record);
+  vigAnswers.push(record);
 
-  currentStep++;
-  if (currentStep >= 9) {
+  vigStep++;
+  if (vigStep >= 9) {
     showEnd();
   } else {
-    render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    renderVignette();
   }
 }
 
-// ─────────────────────────────────────────────
-// SALVATAGGIO SU GOOGLE SHEETS
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
+// SALVATAGGIO
+// ═══════════════════════════════════════════════════
 async function saveToSheets() {
   const msgEl = document.getElementById('saving-msg');
   msgEl.textContent = 'Salvataggio dati in corso...';
-  msgEl.className = 'saving-msg';
 
   const payload = {
-    participant_id: participantId,
-    version: version,
-    answers: answers,
+    q1: q1Answers,
+    version,
+    vignette_answers: vigAnswers,
   };
 
   if (!SAVE_TO_SHEETS) {
     console.log('=== DATI RACCOLTI (modalità test) ===');
     console.log(JSON.stringify(payload, null, 2));
     msgEl.textContent = 'Modalità test: dati in console.';
-    msgEl.className = 'saving-msg';
     return;
   }
 
   try {
-    // Usiamo no-cors perché Apps Script non restituisce CORS headers
-    // I dati vengono salvati ma non possiamo leggere la risposta
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -728,31 +1608,46 @@ async function saveToSheets() {
     msgEl.textContent = '✓ Dati salvati correttamente.';
     msgEl.className = 'saving-msg success';
   } catch (err) {
-    console.error('Errore salvataggio:', err);
+    console.error('Errore:', err);
+    console.log('BACKUP:', JSON.stringify(payload));
     msgEl.textContent = 'Errore nel salvataggio. Contatta il ricercatore.';
     msgEl.className = 'saving-msg error';
-    // Backup: stampa in console così i dati non sono persi
-    console.log('BACKUP DATI:', JSON.stringify(payload));
   }
 }
 
 function showEnd() {
-  document.getElementById('progress-wrap').classList.add('hidden');
+  document.getElementById('vignette-progress').classList.add('hidden');
   document.getElementById('vignette-card').classList.add('hidden');
   document.getElementById('end-card').classList.remove('hidden');
   saveToSheets();
 }
 
 // Sliders
-document.getElementById('confidence-slider').addEventListener('input', e => {
-  document.getElementById('confidence-val').textContent = e.target.value;
+document.getElementById('conf-slider').addEventListener('input', e => {
+  document.getElementById('conf-val').textContent = e.target.value;
 });
-document.getElementById('confidence-slider-2').addEventListener('input', e => {
-  document.getElementById('confidence-val-2').textContent = e.target.value;
+document.getElementById('conf-slider-2').addEventListener('input', e => {
+  document.getElementById('conf-val-2').textContent = e.target.value;
+});
+
+// Option item highlight on click
+document.querySelectorAll('.option-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const inp = item.querySelector('input');
+    if (inp && inp.type === 'radio') {
+      const name = inp.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        r.closest('.option-item').classList.remove('selected');
+      });
+      item.classList.add('selected');
+    } else if (inp && inp.type === 'checkbox') {
+      item.classList.toggle('selected', inp.checked);
+    }
+  });
 });
 
 // INIT
-render();
+showPage(1);
 </script>
 </body>
 </html>
