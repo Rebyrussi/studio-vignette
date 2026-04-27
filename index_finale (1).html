@@ -987,14 +987,34 @@
     <button class="btn-primary" id="btn-next-vig" onclick="nextVignette()" disabled style="margin-top:1rem">Conferma e continua →</button>
   </div>
 
-  <!-- SCHERMATA FINALE -->
-  <div id="end-card" class="card end-screen hidden">
-    <div class="checkmark">✓</div>
-    <h2>Grazie per la partecipazione!</h2>
-    <p>Ha completato tutte e 9 le vignette cliniche.</p>
-    <p>I suoi dati contribuiranno alla ricerca sull'uso dell'AI nella diagnosi clinica.</p>
-    <p style="font-size:0.82rem;margin-top:1rem">Per domande: 9410@studenti.ius.to</p>
-    <div class="saving-msg" id="saving-msg"></div>
+  <!-- SCHERMATA FINALE / DEBRIEFING -->
+  <div id="end-card" class="card hidden" style="padding:2.5rem 2rem">
+    <div style="text-align:center;margin-bottom:2rem">
+      <div class="checkmark">✓</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:0.5rem">Grazie per la partecipazione!</h2>
+      <p style="color:var(--muted);font-size:0.95rem">Ha completato tutte e 9 le vignette cliniche.</p>
+      <div class="saving-msg" id="saving-msg"></div>
+    </div>
+
+    <div style="font-size:0.88rem;line-height:1.75;color:var(--text)">
+
+      <div style="background:var(--accent);color:white;padding:0.55rem 1rem;border-radius:3px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1.2rem">
+        Debriefing
+      </div>
+
+      <p style="margin-bottom:1.2rem">Il presente studio si inserisce nell'ambito della ricerca sul ragionamento diagnostico e sull'interazione umano-intelligenza artificiale in contesti clinici. L'obiettivo principale era analizzare in che misura la presenza di un suggerimento diagnostico proveniente da un sistema AI, nelle sue diverse forme (risposta sola, risposta con giustificazione, presentata prima o dopo la decisione individuale), influenza l'accuratezza diagnostica e il livello di fiducia nella propria decisione. Questo fenomeno è noto in letteratura come <em>automation bias</em>.</p>
+
+      <div style="background:var(--warn-light);border-left:3px solid #c8a028;border-radius:3px;padding:1rem 1.2rem;margin-bottom:1.2rem">
+        <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--warn);margin-bottom:0.5rem">Informativa sulla procedura di mild deception</div>
+        <p>Al fine di garantire la validità ecologica dello studio, alcune delle risposte attribuite al sistema AI nel corso del questionario erano intenzionalmente non corrette. Tale procedura, definita <em>mild deception</em>, è una pratica metodologica consolidata nella ricerca psicologica sperimentale e non implica alcun giudizio sulle competenze del partecipante. Le risposte errate sono state costruite appositamente per consentire la misurazione del fenomeno oggetto di indagine, in condizioni che replicano scenari realistici di supporto decisionale. La procedura è stata approvata dal comitato etico competente.</p>
+      </div>
+
+      <div style="background:var(--accent-light);border-left:3px solid var(--accent);border-radius:3px;padding:1rem 1.2rem;margin-bottom:1.2rem">
+        <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem">Contatti e restituzione dei risultati</div>
+        <p>Per qualsiasi domanda relativa allo studio, ritiro del consenso e cancellazione dei dati, o per ricevere una sintesi dei risultati al termine della ricerca, è possibile contattare il team di ricerca al seguente indirizzo: <a href="mailto:9410@studenti.ius.to" style="color:var(--accent)">9410@studenti.ius.to</a>.</p>
+      </div>
+
+    </div>
   </div>
 
 </div>
